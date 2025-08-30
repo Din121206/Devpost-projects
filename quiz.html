@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Navigation Quiz | Test Your Knowledge</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <style>
+        :root {
+            /* Primary Colors */
+            --primary: #7b68ee;
+            --primary-light: #9485f1;
+            --primary-dark: #634dd8;
+            --secondary: #00d1b2;
+            --secondary-light: #33dac1;
+            --accent: #ff6b6b;
+            
+            /* Neutral Colors */
+            --dark: #0f172a;
+            --darker: #0b0f1e;
+            --dark-transparent: rgba(15, 23, 42, 0.95);
+            --light: #f8fafc;
+            --light-gray: #e2e8f0;
+            --gray: #94a3b8;
+            --dark-gray: #475569;
+            
+            /* Status Colors */
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            
+            /* Effects */
+            --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --transition: all 0.3s ease;
+            --border-radius: 12px;
+            --border-radius-lg: 16px;
+            --border-radius-xl: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, var(--darker), #1e293b);
+            color: var(--light);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 0;
+        }
+
+        .quiz-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .quiz-header p {
+            font-size: 1.2rem;
+            color: var(--light-gray);
+            margin-bottom: 20px;
+        }
+
+        .quiz-container {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: var(--border-radius-lg);
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .quiz-progress {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .progress-bar-container {
+            flex: 1;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            margin: 0 20px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 0%;
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 25px;
+            line-height: 1.4;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .option {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            padding: 18px 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .option:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            background: rgba(123, 104, 238, 0.2);
+            border-color: var(--primary);
+        }
+
+        .option.correct {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: var(--success);
+        }
+
+        .option.incorrect {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: var(--danger);
+        }
+
+        .option-radio {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--gray);
+            border-radius: 50%;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .option input[type="radio"] {
+            display: none;
+        }
+
+        .option input[type="radio"]:checked + .option-label .option-radio {
+            border-color: var(--primary);
+        }
+
+        .option input[type="radio"]:checked + .option-label .option-radio::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+
+        .option-text {
+            flex: 1;
+            font-size: 1rem;
+            color: var(--light);
+        }
+
+        .quiz-feedback {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 4px solid var(--primary);
+            display: none;
+        }
+
+        .quiz-feedback.correct {
+            border-left-color: var(--success);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .quiz-feedback.incorrect {
+            border-left-color: var(--danger);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .feedback-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .feedback-title i {
+            font-size: 1.2rem;
+        }
+
+        .quiz-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .btn-quiz {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-prev {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+        }
+
+        .btn-prev:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(-3px);
+        }
+
+        .btn-prev:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-next {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .btn-next:hover {
+            transform: translateX(3px);
+            box-shadow: 0 5px 15px rgba(123, 104, 238, 0.4);
+        }
+
+        .quiz-results {
+            text-align: center;
+            display: none;
+        }
+
+        .quiz-complete-icon {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .quiz-results h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .quiz-score {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+
+        .quiz-message {
+            font-size: 1.2rem;
+            color: var(--light-gray);
+            margin-bottom: 30px;
+        }
+
+        .btn-restart {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-right: 15px;
+        }
+
+        .btn-restart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(123, 104, 238, 0.4);
+        }
+
+        .btn-home {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .btn-home:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .quiz-container {
+                padding: 25px 20px;
+            }
+            
+            .quiz-header h1 {
+                font-size: 2rem;
+            }
+            
+            .question-text {
+                font-size: 1.1rem;
+            }
+            
+            .quiz-navigation {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="quiz-header">
+            <h1><i class="fas fa-atom"></i> Quantum Navigation Quiz</h1>
+            <p>Test your understanding of quantum navigation concepts and principles</p>
+        </div>
+
+        <div class="quiz-container">
+            <!-- Progress Bar -->
+            <div class="quiz-progress">
+                <div class="quiz-progress-text">Question <span id="current-question">1</span> of <span id="total-questions">10</span></div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" id="quiz-progress-bar"></div>
+                </div>
+                <div class="quiz-progress-text" id="score">0%</div>
+            </div>
+            
+            <!-- Question Container -->
+            <div id="question-container">
+                <div class="quiz-question">
+                    <div class="question-text" id="question-text">Loading question...</div>
+                    
+                    <div class="quiz-options" id="options-container">
+                        <!-- Options will be populated by JavaScript -->
+                    </div>
+                    
+                    <!-- Feedback -->
+                    <div class="quiz-feedback" id="feedback">
+                        <div class="feedback-title">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Correct!</span>
+                        </div>
+                        <p class="feedback-text" id="feedback-text">Great job! This is the correct answer.</p>
+                    </div>
+                </div>
+                
+                <!-- Navigation Buttons -->
+                <div class="quiz-navigation">
+                    <button class="btn-quiz btn-prev" id="prev-btn" disabled>
+                        <i class="fas fa-arrow-left"></i> Previous
+                    </button>
+                    <button class="btn-quiz btn-next" id="next-btn">
+                        Next Question <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Results Screen (initially hidden) -->
+            <div class="quiz-results" id="results">
+                <div class="quiz-complete-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h3>Quiz Complete!</h3>
+                <div class="quiz-score" id="final-score">0%</div>
+                <p class="quiz-message" id="result-message">Great job! You have completed the quiz.</p>
+                <div style="margin-top: 30px;">
+                    <button class="btn-restart" id="restart-btn">
+                        <i class="fas fa-redo"></i> Take Quiz Again
+                    </button>
+                    <a href="index.html" class="btn-home">
+                        <i class="fas fa-home"></i> Back to Main Site
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz Questions
+        const quizQuestions = [
+            {
+                question: "What key problem does quantum navigation aim to solve compared to GPS?",
+                options: [
+                    "Making satellites cheaper",
+                    "Operating accurately without external radio signals (GPS-denied)",
+                    "Reducing website load times",
+                    "Communicating through walls"
+                ],
+                answer: 1,
+                explanation: "Quantum navigation provides accurate positioning without relying on external signals like GPS, making it reliable in GPS-denied environments."
+            },
+            {
+                question: "Which physical principle is most central to quantum navigation sensors?",
+                options: [
+                    "Thermal expansion",
+                    "Matter-wave interference",
+                    "Classical resonance only",
+                    "Static electricity"
+                ],
+                answer: 1,
+                explanation: "Quantum navigation relies on matter-wave interference to make ultra-precise measurements of position and movement."
+            },
+            {
+                question: "In atom interferometry, which quantity carries information about motion?",
+                options: [
+                    "Color of the atoms",
+                    "Mass alone",
+                    "Phase difference between paths",
+                    "Temperature of the lab"
+                ],
+                answer: 2,
+                explanation: "The phase difference between quantum paths in an atom interferometer contains information about the motion and position of the system."
+            },
+            {
+                question: "A quantum gyroscope primarily measures which quantity?",
+                options: [
+                    "Ambient light level",
+                    "Humidity",
+                    "Rotation rate",
+                    "Sound intensity"
+                ],
+                answer: 2,
+                explanation: "Quantum gyroscopes measure rotation rates with extreme precision using quantum mechanical effects."
+            },
+            {
+                question: "What is a major advantage of quantum inertial sensors over classical IMUs?",
+                options: [
+                    "They need satellites to work",
+                    "Lower long-term drift and better stability",
+                    "They run only underwater",
+                    "They require constant Wi-Fi"
+                ],
+                answer: 1,
+                explanation: "Quantum sensors have significantly lower drift rates compared to classical IMUs, providing more accurate measurements over time."
+            },
+            {
+                question: "In which environment is quantum navigation especially useful?",
+                options: [
+                    "Open fields with perfect GPS",
+                    "Deep underwater or underground tunnels",
+                    "Areas with many cell towers",
+                    "Mountain tops with clear skies"
+                ],
+                answer: 1,
+                explanation: "Quantum navigation is particularly valuable in GPS-denied environments like underwater, underground, or other areas where satellite signals cannot reach."
+            },
+            {
+                question: "The Sagnac effect used in gyroscopes relates phase shift to:",
+                options: [
+                    "Air pressure and humidity",
+                    "Enclosed area and rotation rate",
+                    "Battery voltage only",
+                    "Temperature gradient only"
+                ],
+                answer: 1,
+                explanation: "The Sagnac effect creates a phase shift proportional to the enclosed area of the interferometer and the rotation rate, which is fundamental to quantum gyroscope operation."
+            },
+            {
+                question: "How are atoms typically prepared for high-precision interferometry?",
+                options: [
+                    "Laser cooling and trapping",
+                    "Microwave heating",
+                    "Mechanical compression",
+                    "Electric arc discharge"
+                ],
+                answer: 0,
+                explanation: "Atoms are prepared using laser cooling and trapping techniques to reduce their thermal motion and create the ideal conditions for quantum interferometry."
+            },
+            {
+                question: "A quantum gravimeter is designed to measure:",
+                options: [
+                    "Earth's magnetic field",
+                    "Local gravitational acceleration (g)",
+                    "Air composition",
+                    "Radio frequency noise"
+                ],
+                answer: 1,
+                explanation: "Quantum gravimeters use atom interferometry to measure local gravitational acceleration with extreme precision, useful for navigation and geological surveys."
+            },
+            {
+                question: "In light-pulse atom interferometers, what acts like beam splitters and mirrors?",
+                options: [
+                    "Mechanical shutters",
+                    "Acoustic waves",
+                    "Laser pulses driving atomic transitions",
+                    "Static electric plates"
+                ],
+                answer: 2,
+                explanation: "Laser pulses that drive atomic transitions act as the quantum equivalents of beam splitters and mirrors in atom interferometers."
+            }
+        ];
+
+        // Quiz state
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let userAnswers = [];
+        let quizCompleted = false;
+
+        // DOM elements
+        const questionElement = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const prevButton = document.getElementById('prev-btn');
+        const nextButton = document.getElementById('next-btn');
+        const restartButton = document.getElementById('restart-btn');
+        const resultsContainer = document.getElementById('results');
+        const questionContainer = document.getElementById('question-container');
+        const finalScoreElement = document.getElementById('final-score');
+        const resultMessageElement = document.getElementById('result-message');
+        const currentQuestionElement = document.getElementById('current-question');
+        const totalQuestionsElement = document.getElementById('total-questions');
+        const scoreElement = document.getElementById('score');
+        const progressBar = document.getElementById('quiz-progress-bar');
+        const feedbackElement = document.getElementById('feedback');
+        const feedbackText = document.getElementById('feedback-text');
+
+        // Initialize quiz
+        function initQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            userAnswers = new Array(quizQuestions.length).fill(null);
+            quizCompleted = false;
+            
+            totalQuestionsElement.textContent = quizQuestions.length;
+            currentQuestionElement.textContent = '1';
+            scoreElement.textContent = '0%';
+            progressBar.style.width = '0%';
+            
+            resultsContainer.style.display = 'none';
+            questionContainer.style.display = 'block';
+            
+            showQuestion();
+            updateProgress();
+        }
+
+        // Display current question
+        function showQuestion() {
+            const question = quizQuestions[currentQuestionIndex];
+            questionElement.textContent = question.question;
+            
+            // Clear previous options
+            optionsContainer.innerHTML = '';
+            
+            // Create new options
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'option';
+                
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = 'quiz-option';
+                input.id = `option-${index + 1}`;
+                input.value = index;
+                
+                if (userAnswers[currentQuestionIndex] === index) {
+                    input.checked = true;
+                }
+                
+                const label = document.createElement('label');
+                label.htmlFor = `option-${index + 1}`;
+                label.className = 'option-label';
+                
+                const radioSpan = document.createElement('span');
+                radioSpan.className = 'option-radio';
+                
+                const textSpan = document.createElement('span');
+                textSpan.className = 'option-text';
+                textSpan.textContent = option;
+                
+                optionElement.appendChild(input);
+                optionElement.appendChild(radioSpan);
+                optionElement.appendChild(textSpan);
+                
+                // Add click event
+                optionElement.addEventListener('click', () => {
+                    if (!quizCompleted) {
+                        selectOption(optionElement, index);
+                    }
+                });
+                
+                optionsContainer.appendChild(optionElement);
+            });
+            
+            // Update navigation buttons
+            prevButton.disabled = currentQuestionIndex === 0;
+            nextButton.textContent = currentQuestionIndex === quizQuestions.length - 1 ? 'Finish Quiz' : 'Next Question';
+            
+            // Show/hide feedback
+            if (userAnswers[currentQuestionIndex] !== null) {
+                showFeedback();
+            } else {
+                hideFeedback();
+            }
+        }
+
+        // Handle option selection
+        function selectOption(optionElement, optionIndex) {
+            // Reset all options
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Mark selected option
+            optionElement.classList.add('selected');
+            
+            // Store user answer
+            userAnswers[currentQuestionIndex] = optionIndex;
+            
+            // Show feedback
+            showFeedback();
+        }
+
+        // Show feedback for selected answer
+        function showFeedback() {
+            const selectedOption = userAnswers[currentQuestionIndex];
+            const correctAnswer = quizQuestions[currentQuestionIndex].answer;
+            const isCorrect = selectedOption === correctAnswer;
+            
+            // Update UI based on answer
+            const options = document.querySelectorAll('.option');
+            options.forEach((option, index) => {
+                if (index === correctAnswer) {
+                    option.classList.add('correct');
+                } else if (index === selectedOption && !isCorrect) {
+                    option.classList.add('incorrect');
+                }
+            });
+            
+            // Update feedback text
+            feedbackElement.className = `quiz-feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            feedbackElement.querySelector('.feedback-title i').className = `fas ${isCorrect ? 'fa-check-circle' : 'fa-times-circle'}`;
+            feedbackElement.querySelector('.feedback-title span').textContent = isCorrect ? 'Correct!' : 'Incorrect';
+            feedbackText.textContent = quizQuestions[currentQuestionIndex].explanation;
+            feedbackElement.style.display = 'block';
+            
+            // Update score
+            updateScore();
+        }
+
+        // Hide feedback
+        function hideFeedback() {
+            feedbackElement.style.display = 'none';
+        }
+
+        // Update progress bar and score
+        function updateProgress() {
+            const progress = (currentQuestionIndex / (quizQuestions.length - 1)) * 100;
+            progressBar.style.width = `${Math.min(progress, 100)}%`;
+            currentQuestionElement.textContent = currentQuestionIndex + 1;
+            updateScore();
+        }
+
+        // Update score display
+        function updateScore() {
+            const correctAnswers = userAnswers.filter((answer, index) => 
+                answer === quizQuestions[index].answer
+            ).length;
+            const percentage = Math.round((correctAnswers / quizQuestions.length) * 100);
+            scoreElement.textContent = `${percentage}%`;
+            score = correctAnswers;
+        }
+
+        // Show results
+        function showResults() {
+            const percentage = Math.round((score / quizQuestions.length) * 100);
+            finalScoreElement.textContent = `${percentage}%`;
+            
+            // Set result message based on score
+            let message = '';
+            if (percentage >= 80) {
+                message = 'Excellent! You have a deep understanding of quantum navigation.';
+            } else if (percentage >= 60) {
+                message = 'Good job! You have a solid grasp of quantum navigation concepts.';
+            } else if (percentage >= 40) {
+                message = 'Not bad! Review the material and try again to improve your score.';
+            } else {
+                message = 'Keep learning! Review the modules and try the quiz again.';
+            }
+            
+            resultMessageElement.textContent = message;
+            questionContainer.style.display = 'none';
+            resultsContainer.style.display = 'block';
+            
+            // Animate score counter
+            animateValue(finalScoreElement, 0, percentage, 1500);
+        }
+
+        // Animate value counter
+        function animateValue(element, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const current = Math.floor(progress * (end - start) + start);
+                element.textContent = `${current}%`;
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // Event Listeners
+        nextButton.addEventListener('click', () => {
+            if (userAnswers[currentQuestionIndex] === null) {
+                alert('Please select an answer before continuing.');
+                return;
+            }
+            
+            if (currentQuestionIndex < quizQuestions.length - 1) {
+                currentQuestionIndex++;
+                showQuestion();
+                updateProgress();
+            } else {
+                showResults();
+            }
+        });
+
+        prevButton.addEventListener('click', () => {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                showQuestion();
+                updateProgress();
+            }
+        });
+
+        restartButton.addEventListener('click', () => {
+            initQuiz();
+        });
+
+        // Initialize the quiz when page loads
+        document.addEventListener('DOMContentLoaded', initQuiz);
+    </script>
+</body>
+</html>

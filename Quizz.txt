@@ -1,0 +1,119 @@
+question: What key problem does quantum navigation aim to solve compared to GPS?
+options:
+A) Making satellites cheaper
+B) Operating accurately without external radio signals (GPS-denied)
+C) Reducing website load times
+D) Communicating through walls
+ans: B
+
+question: Which physical principle is most central to quantum navigation sensors?
+options:
+A) Thermal expansion
+B) Matter-wave interference
+C) Classical resonance only
+D) Static electricity
+ans: B
+
+question: In atom interferometry, which quantity carries information about motion?
+options:
+A) Color of the atoms
+B) Mass alone
+C) Phase difference between paths
+D) Temperature of the lab
+ans: C
+
+question: A quantum gyroscope primarily measures which quantity?
+options:
+A) Ambient light level
+B) Humidity
+C) Rotation rate
+D) Sound intensity
+ans: C
+
+question: What is a major advantage of quantum inertial sensors over classical IMUs?
+options:
+A) They need satellites to work
+B) Lower long-term drift and better stability
+C) They run only underwater
+D) They require constant Wi-Fi
+ans: B
+
+question: In which environment is quantum navigation especially useful?
+options:
+A) Open fields with perfect GPS
+B) Deep underwater or underground tunnels
+C) Areas with many cell towers
+D) Mountain tops with clear skies
+ans: B
+
+question: The Sagnac effect used in gyroscopes relates phase shift to:
+options:
+A) Air pressure and humidity
+B) Enclosed area and rotation rate
+C) Battery voltage only
+D) Temperature gradient only
+ans: B
+
+question: How are atoms typically prepared for high-precision interferometry?
+options:
+A) Laser cooling and trapping
+B) Microwave heating
+C) Mechanical compression
+D) Electric arc discharge
+ans: A
+
+question: A quantum gravimeter is designed to measure:
+options:
+A) Earth’s magnetic field
+B) Local gravitational acceleration (g)
+C) Air composition
+D) Radio frequency noise
+ans: B
+
+question: In light-pulse atom interferometers, what acts like beam splitters and mirrors?
+options:
+A) Mechanical shutters
+B) Acoustic waves
+C) Laser pulses driving atomic transitions
+D) Static electric plates
+ans: C
+
+question: A current engineering challenge for quantum navigation systems is:
+options:
+A) They cannot function on land
+B) Size/weight/power and vibration sensitivity
+C) They require constant satellite time sync
+D) They only work at high temperatures
+ans: B
+
+question: What is “bias drift” in inertial sensors?
+options:
+A) Sudden power failure
+B) Slow change in the zero reading over time
+C) Random keyboard input
+D) Increase in device weight
+ans: B
+
+question: Why are magnetic shields often used around atom interferometers?
+options:
+A) To keep devices cool
+B) To block Wi-Fi interference
+C) To reduce Zeeman shifts that perturb phase
+D) To improve battery life
+ans: C
+
+question: For a constant acceleration, the interferometer phase scales approximately as φ ∝ k_eff · a · T². Which parameter most strongly boosts sensitivity?
+options:
+A) Shorter interrogation time T
+B) Larger interrogation time T
+C) Lower effective wavevector k_eff
+D) Smaller atomic mass only
+ans: B
+
+question: How are quantum sensors typically integrated into a full navigation system?
+options:
+A) Used alone without processing
+B) Sensor fusion (e.g., Kalman filtering) with other inertial/aid sensors
+C) Replaced by GPS entirely
+D) Connected directly to a speaker
+ans: B

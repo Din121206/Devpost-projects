@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Learn about quantum navigation, the future of precise positioning technology">
+  <title>Quantum Navigation Explained | The Future of Positioning Technology</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <!-- Main Styles -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Component Styles -->
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/navigation.css">
+  <link rel="stylesheet" href="css/hero.css">
+  <link rel="stylesheet" href="css/modules.css">
+  <link rel="stylesheet" href="css/simulator.css">
+  <link rel="stylesheet" href="css/quiz.css">
+  <link rel="stylesheet" href="css/resources.css">
+</head>
+<body>
+  <!-- Back to Top Button -->
+  <div id="scroll-to-top-btn" style="
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #5f4bff, #9d4dff);
+    color: white;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 50%;
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 4px 25px rgba(95, 75, 255, 0.4);
+    z-index: 9999;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    line-height: 1;
+    user-select: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+  ">
+    ↑
+  </div>
+  
+  <script>
+    // Enhanced back to top functionality for Brave browser
+    document.addEventListener('DOMContentLoaded', function() {
+      var btn = document.getElementById('scroll-to-top-btn');
+      if (btn) {
+        console.log('Back to top button found and ready');
+        
+        // Smooth animated scroll to top function
+        function scrollToTop() {
+          console.log('Scroll to top clicked!');
+          
+          // Get current scroll position
+          var startPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+          console.log('Starting scroll position:', startPos);
+          
+          if (startPos === 0) {
+            console.log('Already at top');
+            return;
+          }
+          
+          // Animation variables
+          var duration = 800; // 800ms animation
+          var startTime = null;
+          var ease = function(t) {
+            // Ease-out-cubic for smooth deceleration
+            return 1 - Math.pow(1 - t, 3);
+          };
+          
+          // Animation function
+          function animateScroll(currentTime) {
+            if (startTime === null) startTime = currentTime;
+            
+            var timeElapsed = currentTime - startTime;
+            var progress = Math.min(timeElapsed / duration, 1);
+            var easedProgress = ease(progress);
+            
+            // Calculate current position
+            var currentPos = startPos * (1 - easedProgress);
+            
+            // Apply scroll
+            window.scrollTo(0, currentPos);
+            document.documentElement.scrollTop = currentPos;
+            document.body.scrollTop = currentPos;
+            
+            // Continue animation if not finished
+            if (progress < 1) {
+              requestAnimationFrame(animateScroll);
+            } else {
+              // Ensure we're exactly at top
+              window.scrollTo(0, 0);
+              document.documentElement.scrollTop = 0;
+              document.body.scrollTop = 0;
+              console.log('Scroll animation completed');
+            }
+          }
+          
+          // Start the animation
+          requestAnimationFrame(animateScroll);
+        }
+        
+        // Add click event with multiple handlers
+        btn.addEventListener('click', scrollToTop);
+        btn.addEventListener('touchstart', scrollToTop); // For mobile
+        
+        // Add visual feedback on click with animation
+        btn.addEventListener('mousedown', function() {
+          this.style.transform = 'scale(0.95)';
+          this.style.boxShadow = '0 2px 8px rgba(0,0,0,0.3)';
+        });
+        
+        btn.addEventListener('mouseup', function() {
+          this.style.transform = 'translateY(-3px)';
+          this.style.boxShadow = '0 6px 20px rgba(0,0,0,0.4)';
+        });
+        
+        // Add spinning animation during scroll
+        btn.addEventListener('click', function() {
+          var self = this;
+          self.style.animation = 'spin 0.8s ease-out';
+          
+          // Remove animation after completion
+          setTimeout(function() {
+            self.style.animation = '';
+          }, 800);
+        });
+        
+        // Hover effects
+        btn.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-3px)';
+          this.style.background = '#00d1b2';
+        });
+        
+        btn.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0)';
+          this.style.background = '#7b68ee';
+        });
+        
+        console.log('All event listeners added successfully');
+      } else {
+        console.error('Back to top button not found!');
+      }
+    });
+  </script>
+  
+  <style>
+    /* Smooth animation for the back to top button */
+    @keyframes spin {
+      0% { transform: rotate(0deg) translateY(0); }
+      100% { transform: rotate(360deg) translateY(0); }
+    }
+    
+    /* Glow effect for button */
+    @keyframes buttonGlow {
+      0% { box-shadow: 0 0 5px rgba(95, 75, 255, 0.6); }
+      50% { box-shadow: 0 0 20px rgba(95, 75, 255, 0.8); }
+      100% { box-shadow: 0 0 5px rgba(95, 75, 255, 0.6); }
+    }
+    
+    /* Hover and active states */
+    #scroll-to-top-btn:hover {
+      transform: translateY(-3px) scale(1.05);
+      background: linear-gradient(135deg, #6a56ff, #a95aff);
+      border-color: rgba(255,255,255,0.5);
+      animation: buttonGlow 2s infinite;
+    }
+    
+    #scroll-to-top-btn:active {
+      transform: translateY(1px) scale(0.98);
+    }
+  </style>
+  
+  <!-- Anchor for back to top -->
+  <div id="top"></div>
+  <div class="loading-overlay">
+    <div class="loader">
+      <div class="atom">
+        <div class="nucleus"></div>
+        <div class="orbit"><div class="electron"></div></div>
+        <div class="orbit"><div class="electron"></div></div>
+        <div class="orbit"><div class="electron"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Skip to Content -->
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
+  
+  <!-- Navigation -->
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav-main">
+        <div class="nav-brand">
+          <a href="#" class="logo">QuantumNav</a>
+        </div>
+        
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-menu-toggle" aria-label="Toggle navigation">
+          <span class="menu-bar"></span>
+          <span class="menu-bar"></span>
+          <span class="menu-bar"></span>
+        </button>
+        
+        <div class="nav-menu">
+          <ul class="nav-links">
+            <li><a href="#home" class="nav-link active">Home</a></li>
+            <li><a href="#modules" class="nav-link">Modules</a></li>
+            <li><a href="#simulator" class="nav-link">Simulator</a></li>
+            <li><a href="#quiz" class="nav-link">Quiz</a></li>
+            <li><a href="#resources" class="nav-link">Resources</a></li>
+          </ul>
+          <div class="nav-cta">
+            <a href="#get-started" class="btn btn-primary">Start Learning</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="hero-video-wrap">
+        <video class="hero-video-bg" src="Untitled video - Made with Clipchamp (3).mp4" autoplay loop muted playsinline></video>
+      </div>
+      
+      <div class="hero-content">
+        <div class="container">
+          <h2>Discover the Future of Navigation with Quantum Technology</h2>
+          <p>Explore the revolutionary world of quantum navigation systems that are transforming how we navigate without relying on traditional GPS. Experience the next generation of positioning technology powered by quantum mechanics.</p>
+          
+          <div class="hero-buttons">
+            <a href="#modules" class="btn btn-primary">
+              <span class="btn-text">Start Learning</span>
+              <i class="fas fa-arrow-right btn-icon"></i>
+            </a>
+            <a href="#simulator" class="btn btn-outline">
+              <i class="fas fa-flask btn-icon"></i>
+              <span class="btn-text">Try Simulator</span>
+            </a>
+          </div>
+          
+          <a href="#modules" class="scroll-indicator" aria-label="Scroll down">
+            <span>Scroll to explore</span>
+            <div class="mouse">
+              <div class="wheel"></div>
+            </div>
+          </a>
+        </div>
+      </div>
+      
+      <div class="hero-particles" id="particles-js"></div>
+    </section>
+
+    <!-- Modules Section -->
+    <section id="modules" class="modules-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Learning Modules</h2>
+          <p class="section-subtitle">Dive into the world of quantum navigation through our interactive modules designed for all skill levels</p>
+        </div>
+        
+        <div id="module-cards" class="modules-grid">
+          <!-- Module 1 -->
+          <div class="module-card" data-module="1">
+            <div class="module-icon">
+              <i class="fas fa-atom"></i>
+            </div>
+            <h3>Introduction to Quantum Mechanics</h3>
+            <p>Explore the fundamental principles of quantum mechanics that power quantum navigation systems, from wave-particle duality to quantum superposition.</p>
+            <div class="module-meta">
+              <span class="module-duration"><i class="far fa-clock"></i> 2h 30m</span>
+              <span class="module-lessons"><i class="far fa-list-alt"></i> 8 Lessons</span>
+            </div>
+            <div class="module-progress">
+              <div class="progress-bar" style="width: 0%"></div>
+            </div>
+            <a href="#" class="module-cta">Start Module <i class="fas fa-arrow-right"></i></a>
+          </div>
+          
+          <!-- Module 2 -->
+          <div class="module-card" data-module="2">
+            <div class="module-icon">
+              <i class="fas fa-compass"></i>
+            </div>
+            <h3>Quantum Navigation Fundamentals</h3>
+            <p>Learn how quantum sensors measure motion and position with unprecedented accuracy, and how they differ from traditional navigation systems.</p>
+            <div class="module-meta">
+              <span class="module-duration"><i class="far fa-clock"></i> 3h 15m</span>
+              <span class="module-lessons"><i class="far fa-list-alt"></i> 10 Lessons</span>
+            </div>
+            <div class="module-progress">
+              <div class="progress-bar" style="width: 0%"></div>
+            </div>
+            <a href="#" class="module-cta">Start Module <i class="fas fa-arrow-right"></i></a>
+          </div>
+          
+          <!-- Module 3 -->
+          <div class="module-card" data-module="3">
+            <div class="module-icon">
+              <i class="fas fa-microchip"></i>
+            </div>
+            <h3>Quantum Sensors & Technology</h3>
+            <p>Discover the cutting-edge quantum sensors used in navigation, including atom interferometers and nitrogen-vacancy centers in diamond.</p>
+            <div class="module-meta">
+              <span class="module-duration"><i class="far fa-clock"></i> 2h 45m</span>
+              <span class="module-lessons"><i class="far fa-list-alt"></i> 7 Lessons</span>
+            </div>
+            <div class="module-progress">
+              <div class="progress-bar" style="width: 0%"></div>
+            </div>
+            <a href="#" class="module-cta">Start Module <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Module Detail View (hidden by default) -->
+      <div id="module-detail" class="module-detail">
+        <button class="close-module" aria-label="Close module">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="module-detail-content">
+          <!-- Content will be loaded dynamically -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Simulator Section -->
+    <section id="simulator" class="simulator-section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Quantum Navigation Simulator</h2>
+          <p class="section-subtitle">Experience quantum navigation in action with our interactive 3D simulator</p>
+        </div>
+        
+        <div class="simulator-content">
+          <div class="simulator-description">
+            <h3>Explore Quantum Navigation</h3>
+            <p>Our quantum navigation simulator demonstrates how quantum mechanics can be used for precise positioning without relying on traditional GPS systems. The simulator visualizes quantum particles and their behavior in a 3D space, showing how quantum entanglement and superposition enable ultra-precise navigation.</p>
+            <p>Features include:</p>
+            <ul class="feature-list">
+              <li><i class="fas fa-atom"></i> Interactive 3D visualization of quantum states</li>
+              <li><i class="fas fa-project-diagram"></i> Adjustable qubit count and entanglement levels</li>
+              <li><i class="fas fa-chart-line"></i> Real-time quantum state visualization</li>
+              <li><i class="fas fa-laptop-code"></i> Built with Three.js and p5.js</li>
+            </ul>
+            <a href="simulator.html" target="_blank" class="btn btn-primary btn-lg" style="margin-top: 20px;">
+              <i class="fas fa-rocket"></i> Launch Quantum Simulator
+            </a>
+          </div>
+          <div class="simulator-preview">
+            <div class="simulator-placeholder">
+              <video id="simulator-video" class="simulator-video" poster="https://images.unsplash.com/photo-1635070041407-f10450990750?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" preload="metadata">
+                <source src="sim.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+              <div class="play-button" id="video-play-button">
+                <i class="fas fa-play"></i>
+              </div>
+            </div>
+          </div>
+          <p class="section-subtitle">Experiment with the parameters to see quantum interference in action</p>
+        </div>
+        <div class="simulator-container">
+          <div class="simulator-canvas">
+            <canvas id="interference"></canvas>
+          </div>
+          <div class="simulator-controls">
+            <div class="control-group">
+              <label for="slit-count">Number of Slits</label>
+              <div class="slider-container">
+                <input type="range" id="slit-count" class="slider" min="1" max="5" value="2" step="1">
+                <div class="slider-fill" style="width: 25%;"></div>
+              </div>
+              <div class="control-label">
+                <span>1</span>
+                <span class="control-value" id="slit-count-value">2</span>
+                <span>5</span>
+              </div>
+            </div>
+            <div class="control-group">
+              <label for="wavelength">Wavelength</label>
+              <div class="slider-container">
+                <input type="range" id="wavelength" class="slider" min="1" max="10" value="5" step="0.1">
+                <div class="slider-fill" style="width: 50%;"></div>
+              </div>
+              <div class="control-label">
+                <span>Short</span>
+                <span class="control-value" id="wavelength-value">5.0</span>
+                <span>Long</span>
+              </div>
+            </div>
+            <div class="control-group">
+              <label for="slit-separation">Slit Separation</label>
+              <div class="slider-container">
+                <input type="range" id="slit-separation" class="slider" min="1" max="10" value="5" step="0.1">
+                <div class="slider-fill" style="width: 50%;"></div>
+              </div>
+              <div class="control-label">
+                <span>Narrow</span>
+                <span class="control-value" id="slit-separation-value">5.0</span>
+                <span>Wide</span>
+              </div>
+            </div>
+            <div class="control-group">
+              <label for="slit-width">Slit Width</label>
+              <div class="slider-container">
+                <input type="range" id="slit-width" class="slider" min="1" max="10" value="3" step="0.1">
+                <div class="slider-fill" style="width: 30%;"></div>
+              </div>
+              <div class="control-label">
+                <span>Narrow</span>
+                <span class="control-value" id="slit-width-value">3.0</span>
+                <span>Wide</span>
+              </div>
+            </div>
+            <div class="toggle-group">
+              <label class="toggle">
+                <input type="checkbox" id="show-photons" checked>
+                <span class="toggle-slider"></span>
+                <span class="toggle-label">Show Photons</span>
+              </label>
+            </div>
+            <div class="simulator-info">
+              <h4>About Quantum Interference</h4>
+              <p>This simulator demonstrates the wave-particle duality of quantum particles. Adjust the parameters to see how changing the experimental setup affects the interference pattern.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quiz Section -->
+    <section id="quiz" class="quiz-section">
+      <div class="container">
+        <div class="quiz-header">
+          <h2>Test Your Knowledge</h2>
+          <p class="quiz-subtitle">Take this interactive quiz to test your understanding of quantum navigation concepts</p>
+                     <a href="quiz.html" target="_blank" class="btn btn-primary" style="margin-top: 20px; display: inline-flex; align-items: center; gap: 8px; text-decoration: none;">
+             <i class="fas fa-play"></i> Start Quiz
+           </a>
+        </div>
+        
+        <div class="quiz-container" style="display: none;">
+          <!-- Quiz Card -->
+          <div class="quiz-card">
+            <!-- Progress Bar -->
+            <div class="quiz-progress">
+              <div class="quiz-progress-text">Question <span id="current-question">1</span> of <span id="total-questions">5</span></div>
+              <div class="progress-bar-container">
+                <div class="progress-bar-fill" id="quiz-progress-bar"></div>
+              </div>
+              <div class="quiz-progress-text" id="score">0%</div>
+            </div>
+            
+            <!-- Question Container -->
+            <div id="question-container">
+              <div class="quiz-question">
+                <div class="question-text" id="question-text">What is the basic principle behind quantum navigation?</div>
+                
+                <div class="quiz-options" id="options-container">
+                  <!-- Options will be populated by JavaScript -->
+                  <div class="option">
+                    <input type="radio" name="quiz-option" id="option-1" value="1">
+                    <label for="option-1" class="option-label">
+                      <span class="option-radio"></span>
+                      <span class="option-text">Using Earth's magnetic field for positioning</span>
+                    </label>
+                  </div>
+                  <div class="option">
+                    <input type="radio" name="quiz-option" id="option-2" value="2">
+                    <label for="option-2" class="option-label">
+                      <span class="option-radio"></span>
+                      <span class="option-text">Measuring atomic particle behavior for precise location tracking</span>
+                    </label>
+                  </div>
+                  <div class="option">
+                    <input type="radio" name="quiz-option" id="option-3" value="3">
+                    <label for="option-3" class="option-label">
+                      <span class="option-radio"></span>
+                      <span class="option-text">Using satellite signals for triangulation</span>
+                    </label>
+                  </div>
+                  <div class="option">
+                    <input type="radio" name="quiz-option" id="option-4" value="4">
+                    <label for="option-4" class="option-label">
+                      <span class="option-radio"></span>
+                      <span class="option-text">Measuring atmospheric pressure changes</span>
+                    </label>
+                  </div>
+                </div>
+                
+                <!-- Feedback -->
+                <div class="quiz-feedback" id="feedback">
+                  <div class="feedback-title">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Correct!</span>
+                  </div>
+                  <p class="feedback-text" id="feedback-text">Quantum navigation uses the wave properties of atoms to measure movement with extreme precision.</p>
+                </div>
+              </div>
+              
+              <!-- Navigation Buttons -->
+              <div class="quiz-navigation">
+                <button class="btn-quiz btn-prev" id="prev-btn" disabled>
+                  <i class="fas fa-arrow-left"></i> Previous
+                </button>
+                <button class="btn-quiz btn-next" id="next-btn">
+                  Next Question <i class="fas fa-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+            
+            <!-- Results Screen (initially hidden) -->
+            <div class="quiz-results" id="results">
+              <div class="quiz-complete-icon">
+                <i class="fas fa-trophy"></i>
+              </div>
+              <h3>Quiz Complete!</h3>
+              <div class="quiz-score" id="final-score">80%</div>
+              <p class="quiz-message" id="result-message">Great job! You have a good understanding of quantum navigation concepts.</p>
+              <button class="btn-restart" id="restart-btn">
+                <i class="fas fa-redo"></i> Take Quiz Again
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section id="resources" class="resources-section">
+      <div class="container">
+        <div class="resources-header">
+          <h2>Additional Resources</h2>
+          <p class="resources-subtitle">Expand your knowledge with these carefully selected resources on quantum navigation and related topics</p>
+        </div>
+        
+        <!-- Resource Tabs -->
+        <div class="resources-tabs">
+          <button class="tab-btn active" data-category="all">
+            <i class="fas fa-th-large"></i> All Resources
+          </button>
+          <button class="tab-btn" data-category="articles">
+            <i class="far fa-newspaper"></i> Articles
+          </button>
+          <button class="tab-btn" data-category="videos">
+            <i class="fas fa-play-circle"></i> Videos
+          </button>
+          <button class="tab-btn" data-category="papers">
+            <i class="fas fa-file-alt"></i> Research Papers
+          </button>
+          <button class="tab-btn" data-category="tools">
+            <i class="fas fa-tools"></i> Tools & Simulators
+          </button>
+        </div>
+        
+        <!-- Resources Grid -->
+        <div class="resources-grid">
+          <!-- Resource Card 1 -->
+          <div class="resource-card" data-categories="articles">
+            <div class="resource-image">
+              <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Quantum Navigation">
+              <span class="resource-category">Article</span>
+            </div>
+            <div class="resource-content">
+              <span class="resource-type">Beginner • 8 min read</span>
+              <h3 class="resource-title">Understanding Quantum Navigation: The Future of Positioning</h3>
+              <p class="resource-description">A comprehensive introduction to quantum navigation systems and how they're revolutionizing location tracking without GPS.</p>
+              <a href="#" class="resource-link" data-resource-id="1">
+                Read More <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+            <div class="resource-meta">
+              <span class="resource-duration"><i class="far fa-clock"></i> 8 min</span>
+              <span class="resource-level"><i class="fas fa-signal"></i> Beginner</span>
+            </div>
+          </div>
+          
+          <!-- Resource Card 2 -->
+          <div class="resource-card" data-categories="videos">
+            <div class="resource-image">
+              <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Quantum Mechanics">
+              <span class="resource-category">Video</span>
+            </div>
+            <div class="resource-content">
+              <span class="resource-type">Intermediate • 15 min</span>
+              <h3 class="resource-title">Quantum Mechanics for Navigation: A Visual Guide</h3>
+              <p class="resource-description">An engaging video explanation of the quantum principles that make quantum navigation possible.</p>
+              <a href="#" class="resource-link" data-resource-id="2">
+                Watch Now <i class="fas fa-play-circle"></i>
+              </a>
+            </div>
+            <div class="resource-meta">
+              <span class="resource-duration"><i class="far fa-clock"></i> 15 min</span>
+              <span class="resource-level"><i class="fas fa-signal"></i> Intermediate</span>
+            </div>
+          </div>
+          
+          <!-- Resource Card 3 -->
+          <div class="resource-card" data-categories="papers">
+            <div class="resource-image">
+              <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80" alt="Quantum Research">
+              <span class="resource-category">Research Paper</span>
+            </div>
+            <div class="resource-content">
+              <span class="resource-type">Advanced • 30 min read</span>
+              <h3 class="resource-title">Advances in Cold Atom Interferometry for Navigation</h3>
+              <p class="resource-description">A detailed research paper on the latest developments in cold atom interferometry for quantum navigation systems.</p>
+              <a href="#" class="resource-link" data-resource-id="3">
+                Read Paper <i class="fas fa-file-pdf"></i>
+              </a>
+            </div>
+            <div class="resource-meta">
+              <span class="resource-duration"><i class="far fa-clock"></i> 30 min</span>
+              <span class="resource-level"><i class="fas fa-signal"></i> Advanced</span>
+            </div>
+          </div>
+          
+          <!-- Resource Card 4 -->
+          <div class="resource-card" data-categories="tools">
+            <div class="resource-image">
+              <img src="https://images.unsplash.com/photo-1581093450231-89f434245125?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Quantum Computing">
+              <span class="resource-category">Tool</span>
+            </div>
+            <div class="resource-content">
+              <span class="resource-type">Interactive • Self-paced</span>
+              <h3 class="resource-title">Quantum Navigation Simulator</h3>
+              <p class="resource-description">An interactive simulator to experiment with quantum navigation principles and see them in action.</p>
+              <a href="#simulator" class="resource-link">
+                Try Simulator <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+            <div class="resource-meta">
+              <span class="resource-duration"><i class="far fa-clock"></i> Self-paced</span>
+              <span class="resource-level"><i class="fas fa-signal"></i> All Levels</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- View More Button -->
+        <div class="text-center" style="margin-top: var(--spacing-2xl);">
+          <button class="btn btn-outline" id="load-more-resources">
+            <i class="fas fa-plus"></i> Load More Resources
+          </button>
+        </div>
+      </div>
+      
+      <!-- Resource Modal -->
+      <div class="resource-modal" id="resource-modal">
+        <div class="modal-content">
+          <button class="modal-close" id="close-modal">
+            <i class="fas fa-times"></i>
+          </button>
+          <div class="modal-header">
+            <h3 id="modal-title">Understanding Quantum Navigation: The Future of Positioning</h3>
+            <div class="modal-meta">
+              <span class="meta-item"><i class="far fa-clock"></i> 8 min read</span>
+              <span class="meta-item"><i class="fas fa-signal"></i> Beginner</span>
+              <span class="meta-item"><i class="far fa-calendar-alt"></i> June 15, 2023</span>
+            </div>
+          </div>
+          <div class="modal-body">
+            <p>Quantum navigation represents a revolutionary approach to positioning, navigation, and timing (PNT) that doesn't rely on external signals like GPS. Instead, it uses the principles of quantum mechanics to measure motion and position with unprecedented accuracy.</p>
+            
+            <h4>How Quantum Navigation Works</h4>
+            <p>At its core, quantum navigation uses atom interferometry to measure the acceleration and rotation of an object. Ultra-cold atoms are cooled to near absolute zero, where they behave as quantum particles rather than classical particles. These atoms are then manipulated using laser beams to create an interference pattern.</p>
+            
+            <p>As the device moves, the interference pattern changes in predictable ways based on the principles of quantum mechanics. By analyzing these changes, the system can determine its precise position, velocity, and orientation without any external references.</p>
+            
+            <h4>Advantages Over Traditional Systems</h4>
+            <ul>
+              <li><strong>No GPS Required:</strong> Works in environments where GPS signals are unavailable or jammed</li>
+              <li><strong>High Precision:</strong> Can maintain accuracy within centimeters over long periods</li>
+              <li><strong>No Drift:</strong> Unlike traditional inertial navigation systems, quantum systems don't accumulate errors over time</li>
+              <li><strong>Security:</strong> Not vulnerable to the same types of spoofing and jamming as GPS</li>
+            </ul>
+            
+            <p>This technology is particularly promising for submarines, autonomous vehicles, and spacecraft, where GPS signals are often unavailable or unreliable.</p>
+          </div>
+          <div class="modal-actions">
+            <a href="#" class="btn btn-primary">
+              <i class="fas fa-external-link-alt"></i> View Full Article
+            </a>
+            <button class="btn btn-outline" id="close-modal-btn">
+              <i class="fas fa-times"></i> Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-about">
+          <h3>Quantum Navigation</h3>
+          <p>Exploring the frontier of navigation technology through quantum mechanics.</p>
+          <div class="social-links">
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#modules">Modules</a></li>
+            <li><a href="#simulator">Simulator</a></li>
+            <li><a href="#quiz">Quiz</a></li>
+            <li><a href="#resources">Resources</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-contact">
+          <h4>Contact Us</h4>
+          <p><i class="fas fa-envelope"></i> 9124205030@kcgcollege.com</p>
+          <p><i class="fas fa-phone"></i> +91 95008 10514</p>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 Quantum Navigation Project. All rights reserved. <a href="LICENSE" style="color: #fff; text-decoration: underline;">MIT Licensed</a></p>
+        <p>Built with <i class="fas fa-heart"></i> by Quantum Enthusiast</p>
+      </div>
+    </div>
+  </footer>
+
+  
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <!-- JavaScript Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+  
+  <!-- Initialize GSAP -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof gsap !== 'undefined' && gsap.registerPlugin) {
+        gsap.registerPlugin(ScrollTrigger);
+      }
+    });
+  </script>
+  
+  <!-- Main JavaScript -->
+  <script>
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+  <script src="js/app.js"></script>
+  <script src="js/animations.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/resources.js"></script>
+  <script src="js/video-controls.js"></script>
+</body>
+</html>
